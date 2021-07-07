@@ -80,29 +80,23 @@ class Main{
 
 #### Estrutura da linguagem Jack:
 
-<ul>
-    <li> <p> Um programa jack é uma coleção de classes onde uma delas precisa ser a main </p> </li>
-    <li>
-        <b>Tipos Primitivos em Jack (3 Tipos):</b>
-        - Int (Inteiro)
-        - Char (Caractere)
-        - Boolean (True / False)
-    </li>
-    <li>
-        <b>Tipos Baseados Em Classes:</b>
-        - Array (Implementado Como Parte Da Lib Padrão Do Jack) / Não São Tipados (Podem haver diversos tipos de variáveis)
-        - String
-    </li>
-    <li>
-        <b>Controles De Fluxo:</b>
-        - if / if... else
-        - While
-        - do
-    </li>
-    <li>
-        <b>Serviços de Sistema Operacional:</b>
-        - Keyboard.readInt()
-        - Output.printString()
-        - Output.printInt()
-    </li>
-</ul>
+<p> Um programa jack é uma coleção de classes onde uma delas precisa ser a main </p>
+
+<b>Tipos Primitivos em Jack (3 Tipos):</b>
+- Int (Inteiro)
+- Char (Caractere)
+- Boolean (True / False)
+
+<b>Tipos Baseados Em Classes:</b>
+- Array (Implementado Como Parte Da Lib Padrão Do Jack) / Não São Tipados (Podem haver diversos tipos de variáveis)
+- String
+
+<b>Controles De Fluxo:</b>
+- if / if... else
+- While
+- do
+
+<b>Serviços de Sistema Operacional:</b>
+- Keyboard.readInt()
+- Output.printString()
+- Output.printInt()
