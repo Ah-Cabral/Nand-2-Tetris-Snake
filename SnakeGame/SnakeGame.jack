@@ -1,0 +1,80 @@
+//O SnakeGame envolve todos as "Regras de Negócios" do jogo.
+class SnakeGame {
+    
+    field Snake snake;
+
+    field int snakeMove;
+
+    constructor SnakeGame new() {
+        //Setando a cobra em uma nova posição
+        let snake = Snake.new(100, 200);
+
+        //Movimento inicial da cobra é 0
+        let snakeMove = 0;
+
+        return this;
+    }
+
+    method void dispose() {
+
+        do snake.dispose();
+
+        do Memory.deAlloc(this);
+
+        return;
+    }
+
+    method void moveSnake() {
+
+        if (snakeMove = 1) {do snake.moveUp();}
+        
+        if (snakeMove = 2) {do snake.moveDown();}
+
+        if (snakeMove = 3) {do snake.moveLeft();}
+
+        if (snakeMove = 4) {do snake.moveRight();}
+
+        return;
+    }
+
+    method void run() {
+        
+        var char key;
+
+        var boolean startStep;
+    
+        let startStep = true;
+
+        //O jogo começa com um passo inicial
+        while (startStep) {
+
+            let key = Keyboard.keyPressed();
+
+            //Veficiação de início do jogo
+            if (~(key = 0)) {
+                let startStep = false;
+            }
+
+        }
+
+        while (true) {
+
+            do Sys.wait(50);
+
+            let key = Keyboard.keyPressed();
+
+            //O Movimento da cobra é para quando a key pressionada for 131
+            if (key = 131) { let snakeMove = 1; } 
+            //O Movimento da cobra é para quando a key pressionada for 133
+            if (key = 133) { let snakeMove = 2; }
+            //O Movimento da cobra é para quando a key pressionada for 130
+            if (key = 130) { let snakeMove = 3; }
+            //O Movimento da cobra é para quando a key pressionada for 132
+            if (key = 132) { let snakeMove = 4; }
+
+            do moveSnake();
+
+        }
+       return;
+    }
+ }
