@@ -1,0 +1,72 @@
+/*Primeiro passo, criar quadrado inicial que representará a cobra.*/
+class Square {
+
+	// Coordenada x de posicionamento.
+    field int CoordX;
+
+	// Coordenada y de posicionamento.
+    field int CoordY;
+
+    //Última coordenada x de posicionamento registrada.
+    field int lastCoordX;
+
+    //Última coordenada y de posicionamento registrada.
+    field int lastCoordY;
+
+    field int size;
+
+    constructor Square new(int x, int y, int Size) {
+        let size = Size;
+
+        //Desenha o retângulo na coordenada (x,y)
+        do draw(x,y);
+
+        return this;
+    }
+
+    /*Método Dispose*/
+    method void dispose() {
+        do Memory.deAlloc(this);
+
+        return;
+    }
+
+    /*Métodos de retorno de coordenadas*/
+    method int getCoordX() {
+        return CoordX;
+    }
+
+    method int getCoordY() {
+        return CoordY;
+    }
+
+    method int getlastCoordX() {
+        return lastCoordX;
+    }
+
+    method int getlastCoordY() {
+        return lastCoordY;
+    }
+
+    /*Método erase() para "desenhar" em branco na coordenada definida*/
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(CoordX, CoordY, CoordX + size, CoordY + size);
+        return;
+    }
+
+    /*Criação do método draw que recebe as coordenadas (x,y) e as utiliza para o desenho do retângulo*/
+    method void draw(int x, int y) {
+
+        let lastCoordX = CoordX;
+        let lastCoordY = CoordY;
+
+        let CoordX = x;
+        let CoordY = y;
+
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        
+        return;
+    }
+}
