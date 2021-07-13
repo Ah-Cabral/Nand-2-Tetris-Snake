@@ -1,0 +1,86 @@
+function Square.new 0
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push argument 2
+pop this 4
+push pointer 0
+push argument 0
+push argument 1
+call Square.draw 3
+pop temp 0
+push pointer 0
+return
+function Square.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Square.getCoordX 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Square.getCoordY 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Square.getlastCoordX 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Square.getlastCoordY 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function Square.erase 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 4
+add
+push this 1
+push this 4
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Square.draw 0
+push argument 0
+pop pointer 0
+push this 0
+pop this 2
+push this 1
+pop this 3
+push argument 1
+pop this 0
+push argument 2
+pop this 1
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push argument 1
+push argument 2
+push argument 1
+push this 4
+add
+push argument 2
+push this 4
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
