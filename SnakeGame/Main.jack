@@ -1,0 +1,12 @@
+/*Classe principal do programa*/
+class Main {
+    /*Function Main Necessária*/
+    function void main () {
+        var SnakeGame game;
+        let game = SnakeGame.new();
+        
+        do game.run();
+        do game.dispose();
+        return;
+    }
+}
