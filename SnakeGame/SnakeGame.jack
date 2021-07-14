@@ -5,6 +5,8 @@ class SnakeGame {
 
     field int snakeMove;
 
+    field Square food;
+
     constructor SnakeGame new() {
         //Setando a cobra em uma nova posição
         let snake = Snake.new(100, 200);
@@ -12,7 +14,22 @@ class SnakeGame {
         //Movimento inicial da cobra é 0
         let snakeMove = 0;
 
+        //A comida é um square que possui tamanho 10 e está presente entre a pos. 306 e 158
+        let food = Square.new(Random.randRange(125), Random.randRange(250), 5);
+
         return this;
+    }
+
+    //Para Finalizar o Jogo, só apertar na key 48 ;) (tecla q)
+    method boolean FinishGame() {
+        var char key;
+
+        let key = Keyboard.keyPressed();
+
+        if (key = 81) { 
+            return true;
+        }
+        return false;
     }
 
     method void dispose() {
@@ -37,6 +54,38 @@ class SnakeGame {
         return;
     }
 
+    method void randomFoodPlace() {
+        var int x, y;
+        let x = Random.randRange(492);
+        let y = Random.randRange(246);
+
+        while (x < 20) {
+            let x = Random.randRange(492);
+        }
+
+        do food.erase();
+        do food.draw(x, y);
+
+        return;
+    }
+
+    //Mensagem inicial instruindo jogador
+    method void startMessage() {
+        do Screen.clearScreen();
+        do Output.moveCursor(5, 17);
+        do Output.printString("Mova a cobrinha para iniciar o jogo ;)");
+
+        return;
+    }
+
+    //Mensagem final informando final do jogo
+    method void finalMessage(){
+        do Screen.clearScreen();
+        do Output.moveCursor(5, 17);
+        do Output.printString("O jogo acabou, ate a proxima ;)");
+        return;
+    }
+    
     method void run() {
         
         var char key;
@@ -45,16 +94,19 @@ class SnakeGame {
     
         let startStep = true;
 
+        do startMessage();
+
         //O jogo começa com um passo inicial
         while (startStep) {
 
             let key = Keyboard.keyPressed();
 
-            //Veficiação de início do jogo
+            //Verificação de início do jogo
             if (~(key = 0)) {
                 let startStep = false;
+                do Screen.clearScreen();
             }
-
+            
         }
 
         while (true) {
@@ -63,18 +115,48 @@ class SnakeGame {
 
             let key = Keyboard.keyPressed();
 
-            //O Movimento da cobra é para quando a key pressionada for 131
-            if (key = 131) { let snakeMove = 1; } 
-            //O Movimento da cobra é para quando a key pressionada for 133
-            if (key = 133) { let snakeMove = 2; }
-            //O Movimento da cobra é para quando a key pressionada for 130
-            if (key = 130) { let snakeMove = 3; }
-            //O Movimento da cobra é para quando a key pressionada for 132
-            if (key = 132) { let snakeMove = 4; }
+            if (key = 131) { 
+                //O Movimento da cobra é para cima quando a key pressionada for 131
+                if (~(snakeMove = 2)) {
+                    let snakeMove = 1;
+                }
+            }   
+            if (key = 133) {
+                //O Movimento da cobra é para baixo quando a key pressionada for 133
+                if (~(snakeMove = 1)){
+                    let snakeMove = 2;
+                }
+            }   
+            if (key = 130) {
+                 //O Movimento da cobra é para quando a key pressionada for 130
+                if (~(snakeMove = 4)){
+                    let snakeMove = 3;
+                }
+
+            } 
+            if (key = 132) {
+                //O Movimento da cobra é para quando a key pressionada for 132
+                if (~(snakeMove = 3)) {
+                    let snakeMove = 4;
+                }
+            }
+            if (key = 78) { 
+                //Uma nova "comida" será adicionada em uma posição aleatória quando a tecla "n" for pressionada
+                if (key) {
+                    do randomFoodPlace();
+                }
+            }
 
             do moveSnake();
 
+            if (FinishGame()) {
+            let startStep = false;
+            do finalMessage();
+            return;
+            }
+
         }
+
        return;
     }
  }
