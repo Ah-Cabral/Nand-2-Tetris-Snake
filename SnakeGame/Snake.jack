@@ -4,6 +4,8 @@ class Snake {
     //Corpo da cobra --> Array
     field Array snakeBody;
 
+    field int x, y;
+
     //Comprimento e tamanho da cobra
     field int lenght, size;
 
@@ -58,6 +60,20 @@ class Snake {
 
         do square.draw(CoordX, CoordY);
 
+        return;
+    }
+
+    /* Draws the square on the screen. */
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        return;
+    }
+
+    /* Erases the square from the screen. */
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x, y, x + size, y + size);
         return;
     }
 
@@ -132,6 +148,7 @@ class Snake {
         }
         return;
     }
+    
 
     //Movimento para direita que, assim como o para baixo, envolve o eixo x
     method void moveRight() {
