@@ -2,32 +2,33 @@
 class Snake {
 
     //Corpo da cobra --> Array
-    field Array snakeBody;
+    field snakeArray snakeBody; 
 
     field int x, y;
 
     //Comprimento e tamanho da cobra
     field int lenght, size;
 
+    //Constructor da Snake
     constructor Snake new(int CoordX, int CoordY) {
 
-        var int count;
+        var int c;
         
-        let size = 10;
+        let size = 14;
         
         let lenght = 3;
 
-        let snakeBody = Array.new(lenght);
+        let snakeBody = snakeArray.new();
 
-        let count = 0;
+        let c = 0;
 
-        while (count < lenght) {
+        while (c < lenght) {
 
-            let snakeBody[count] = Square.new(CoordX, CoordY, size);
+            do snakeBody.addPiece(Square.new(CoordX, CoordY, size));
 
             let CoordX = CoordX - size;
 
-            let count = count + 1;
+            let c = c + 1;
         }
 
         return this;
@@ -37,17 +38,17 @@ class Snake {
 
         var Square square;
 
-        var int count;
+        var int c;
 
-        let count = 0;
+        let c = 0;
 
-        while (count < lenght) {
+        while (c < lenght) {
 
-            let square = snakeBody[count];
+            let square = snakeBody[c];
 
             do square.dispose();
 
-            let count = count + 1;
+            let c = c + 1;
         }
         do Memory.deAlloc(this);
 
@@ -63,14 +64,14 @@ class Snake {
         return;
     }
 
-    /* Draws the square on the screen. */
+    /* Método Draw, que desenhará na tela */
     method void draw() {
         do Screen.setColor(true);
         do Screen.drawRectangle(x, y, x + size, y + size);
         return;
     }
 
-    /* Erases the square from the screen. */
+    /* Método Erasem que desenhará em branco na tela. */
     method void erase() {
         do Screen.setColor(false);
         do Screen.drawRectangle(x, y, x + size, y + size);
@@ -79,11 +80,11 @@ class Snake {
 
     //Movimento para cima que, assim como o para baixo, envolve o eixo y
     method void moveUp() {
-        var int lastCoordX, lastCoordY, targetY, count;
+        var int lastCoordX, lastCoordY, targetY, c;
 
         var Square square;
 
-        let square = snakeBody[0];
+        let square = snakeBody.getValue(0);
 
         let targetY = square.getCoordY() - size;
 
@@ -95,11 +96,11 @@ class Snake {
 
             let lastCoordY = square.getlastCoordY();
 
-            let count = 1;
+            let c = 1;
 
-            while(count < lenght ) {
+            while(c < lenght ) {
 
-                let square = snakeBody[count];
+                let square = snakeBody.getValue(c);
 
                 do simpleMove(square, lastCoordX, lastCoordY);
 
@@ -107,7 +108,7 @@ class Snake {
 
                 let lastCoordY = square.getlastCoordY();
 
-                let count = count + 1;
+                let c = c + 1;
             }
         }
         return;
@@ -115,11 +116,11 @@ class Snake {
 
     method void moveDown() {
 
-        var int lastCoordX, lastCoordY, targetY, count;
+        var int lastCoordX, lastCoordY, targetY, c;
 
         var Square square;
 
-        let square = snakeBody[0];
+        let square = snakeBody.getValue(0);
 
         let targetY = square.getCoordY() + size;
 
@@ -131,11 +132,11 @@ class Snake {
 
             let lastCoordY = square.getlastCoordY();
 
-            let count = 1;
+            let c = 1;
 
-            while(count < lenght ) {
+            while(c < lenght ) {
 
-                let square = snakeBody[count];
+                let square = snakeBody.getValue(c);
 
                 do simpleMove(square, lastCoordX, lastCoordY);
 
@@ -143,57 +144,19 @@ class Snake {
 
                 let lastCoordY = square.getlastCoordY();
 
-                let count = count + 1;
+                let c = c + 1;
             }
         }
         return;
     }
     
+        method void moveLeft() {
 
-    //Movimento para direita que, assim como o para baixo, envolve o eixo x
-    method void moveRight() {
-
-        var int lastCoordX, lastCoordY, targetX, count;
+        var int lastCoordX, lastCoordY, targetX, c;
 
         var Square square;
 
-        let square = snakeBody[0];
-
-        let targetX = square.getCoordX() + size;
-
-        if ((targetX + size) < 513) {
-
-            do simpleMove(square, targetX, square.getCoordY());
-
-            let lastCoordX = square.getlastCoordX();
-
-            let lastCoordY = square.getlastCoordY();
-
-            let count = 1;
-
-            while(count < lenght ) {
-
-                let square = snakeBody[count];
-
-                do simpleMove(square, lastCoordX, lastCoordY);
-
-                let lastCoordX = square.getlastCoordX();
-
-                let lastCoordY = square.getlastCoordY();
-
-                let count = count + 1;
-            }
-        }
-        return;
-    }
-
-    method void moveLeft() {
-
-        var int lastCoordX, lastCoordY, targetX, count;
-
-        var Square square;
-
-        let square = snakeBody[0];
+        let square = snakeBody.getValue(0);
 
         let targetX = square.getCoordX() - size;
 
@@ -205,10 +168,10 @@ class Snake {
 
             let lastCoordY = square.getlastCoordY();
 
-            let count = 1;
-            while(count < lenght ) {
+            let c = 1;
+            while(c < lenght ) {
 
-                let square = snakeBody[count];
+                let square = snakeBody.getValue(c);
 
                 do simpleMove(square, lastCoordX, lastCoordY);
 
@@ -216,9 +179,56 @@ class Snake {
 
                 let lastCoordY = square.getlastCoordY();
 
-                let count = count + 1;
+                let c = c + 1;
             }
         }
+        return;
+    }
+
+    //Movimento para direita que, assim como o para esquerda, envolve o eixo x
+    method void moveRight() {
+
+        var int lastCoordX, lastCoordY, targetX, c;
+
+        var Square square;
+
+        let square = snakeBody.getValue(0);
+
+        let targetX = square.getCoordX() + size;
+
+        if ((targetX + size) < 513) {
+
+            do simpleMove(square, targetX, square.getCoordY());
+
+            let lastCoordX = square.getlastCoordX();
+
+            let lastCoordY = square.getlastCoordY();
+
+            let c = 1;
+
+            while(c < lenght ) {
+
+                let square = snakeBody.getValue(c);
+
+                do simpleMove(square, lastCoordX, lastCoordY);
+
+                let lastCoordX = square.getlastCoordX();
+
+                let lastCoordY = square.getlastCoordY();
+
+                let c = c + 1;
+            }
+        }
+        return;
+    }
+
+    // O Grow será utilizado para o crescimento do comprimento da cobra
+    method void grow() {
+        var Square tail;
+        let tail = snakeBody.getValue(lenght - 1);
+
+        do snakeBody.addPiece(Square.new(tail.getlastCoordX(), tail.getlastCoordY(), size));
+        let lenght = lenght + 1;
         return;
     }
 

@@ -20,17 +20,7 @@ class SnakeGame {
         return this;
     }
 
-    //Para Finalizar o Jogo, só apertar na key 48 ;) (tecla q)
-    method boolean FinishGame() {
-        var char key;
 
-        let key = Keyboard.keyPressed();
-
-        if (key = 81) { 
-            return true;
-        }
-        return false;
-    }
 
     method void dispose() {
 
@@ -72,10 +62,35 @@ class SnakeGame {
     //Mensagem inicial instruindo jogador
     method void startMessage() {
         do Screen.clearScreen();
-        do Output.moveCursor(5, 17);
+        do Output.moveCursor(9, 15);
         do Output.printString("Mova a cobrinha para iniciar o jogo ;)");
+        do Output.println();
+        do Output.println();
+        do Output.printString("As Regras sao:");
+        do Output.println();
+        do Output.printString("S --> Aumenta a velocidade");
+        do Output.println();
+        do Output.printString("D --> Diminui a Velocidade a velocidade");
+        do Output.println();
+        do Output.printString("N --> Insere comida em uma nova posicao na tela");
+        do Output.println();
+        do Output.printString("M --> Aumenta o comprimento da cobra");
+        do Output.println();
+        do Output.printString("Q --> Fecha o Jogo");
 
         return;
+    }
+
+    //Para Finalizar o Jogo, só apertar na key 48 ;) (tecla q)
+    method boolean FinishGame() {
+        var char key;
+
+        let key = Keyboard.keyPressed();
+
+        if (key = 81) { 
+            return true;
+        }
+        return false;
     }
 
     //Mensagem final informando final do jogo
@@ -86,13 +101,17 @@ class SnakeGame {
         return;
     }
     
-    method void run() {
+    method void runGame() {
         
+        var int speed;
+
         var char key;
 
         var boolean startStep;
     
         let startStep = true;
+
+        let speed = 150;
 
         do startMessage();
 
@@ -111,7 +130,7 @@ class SnakeGame {
 
         while (true) {
 
-            do Sys.wait(50);
+            do Sys.wait(speed);
 
             let key = Keyboard.keyPressed();
 
@@ -146,13 +165,33 @@ class SnakeGame {
                     do randomFoodPlace();
                 }
             }
+                        if (key = 78) { 
+                //Uma nova "comida" será adicionada em uma posição aleatória quando a tecla "n" for pressionada
+                if (key) {
+                    do randomFoodPlace();
+                }
+            }
 
             do moveSnake();
 
+            if (key = 77) {
+                do snake.grow();
+            }
+
+            //Apertando a tecla 's', a velocidade do jogo aumenta
+            if (key = 83) {
+                let speed = speed -10;
+            }
+
+            //Apertando a tecla 'd', a velocidade do jogo diminui
+            if (key = 68) {
+                let speed = speed + 10;
+            }
+
             if (FinishGame()) {
-            let startStep = false;
-            do finalMessage();
-            return;
+                let startStep = false;
+                do finalMessage();
+                return;
             }
 
         }

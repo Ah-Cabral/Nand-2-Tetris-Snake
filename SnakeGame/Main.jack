@@ -5,7 +5,7 @@ class Main {
         var SnakeGame game;
         let game = SnakeGame.new();
         
-        do game.run();
+        do game.runGame();
         do game.dispose();
         return;
     }

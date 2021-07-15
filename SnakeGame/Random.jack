@@ -1,3 +1,5 @@
+//A Random será utilizada, junto com a randRange para conseguirmos valores aleatórios em um
+//intervalo de números pré-definidos.
 class Random {
     static int seed;
 
@@ -9,7 +11,6 @@ class Random {
     }
 
     function int rand() {
-        /** return a random number in the range 0..32767 */
         let seed = seed + 20251;
 
         if (seed < 0) {
@@ -22,7 +23,6 @@ class Random {
     }
 
     function int randRange(int range) {
-        /** return a random number in the range 0..range */
         var int mask;
 
         var int ret;
